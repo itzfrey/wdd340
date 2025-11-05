@@ -1,6 +1,193 @@
-/******* Change Box Model ***************/
+:root {
+  --header-font: "Domine", serif;
+  --text-font: "Montserrat", sans-serif;
+  --primary-color: #8CDB82;
+  --white: #fff;
+  --black: #000
+}
+
 *,
 *:before,
 *:after {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
+
+p,
+a,
+li {
+  font-family: var(--text-font);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--header-font);
+}
+
+/**************** HEAD ********************/
+
+#top-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 10px 20px 10px;
+}
+
+.siteName a,
+#tools a {
+  text-decoration: none;
+}
+
+.siteName a {
+  font-size: 1.8rem;
+  color: var(--black);
+  font-weight: bold;
+}
+
+#tools a {
+  color: var(--black);
+  font-weight: 500;
+}
+
+/**************** NAVIGATION ********************/
+
+.navigation {
+  margin: 10px;
+}
+
+.navigation ul {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--black);
+}
+
+.navigation li {
+  list-style: none;
+}
+
+.navigation a {
+  display: block;
+  text-decoration: none;
+  color: var(--white);
+  padding: .8rem 10px;
+  font-size: .9rem;
+}
+
+.navigation a:hover {
+  background-color: var(--primary-color);
+}
+
+/**************** BODY ********************/
+
+.vehicle-showcase {
+  margin: 10px;
+  position: relative;
+}
+
+.vehicle-showcase h1 {
+  margin: 20px 0;
+  font-size: 1.2rem;
+
+}
+
+.vehicle-info {
+  background-color: rgba(237, 237, 237, 0.5);
+  margin-left: 10px;
+  width: auto;
+  position: absolute;
+  bottom: 0px;
+}
+
+.vehicle-name {
+  font-size: 1rem;
+  margin-bottom: 3px;
+}
+
+.vehicle-info p {
+  margin-bottom: 3px;
+  font-size: .8rem;
+}
+
+.vehicle-image {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+.cta-button {
+  padding: 8px;
+  font-size: .9rem;
+  font-weight: bold;
+  border: none;
+  background-color: var(--primary-color);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cta-button:hover {
+  background-color: #2b9e1c;
+  color: var(--white);
+}
+
+.reviews-upgrade {
+  margin: 40px 10px;
+}
+
+.reviews h3 {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+}
+
+.reviews ul {
+  list-style-type: none;
+  list-style-position: inside;
+  text-indent: -2rem;
+}
+
+.reviews li {
+  margin-bottom: 10px;
+  font-size: .9rem;
+  padding-left: 2rem;
+}
+
+.reviews li::before {
+  content: "⚙️";
+  margin-right: 10px;
+  line-height: 1.5;
+}
+
+.upgrades h3 {
+  font-size: 1.2rem;
+  margin: 40px 0 20px 0;
+}
+
+.upgrades-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  max-width: 400px;
+}
+
+.upgrades-image {
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+  background: var(--primary-color);
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: 106px;
+}
+
+.upgrade-items p {
+  font-size: .9rem;
+}
+
+footer {
+  margin: 0 10px 10px 10px;
+}
+
+
+

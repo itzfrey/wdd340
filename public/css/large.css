@@ -1,0 +1,89 @@
+@media only screen and (min-width: 38rem) {
+    body {
+        background-image: url(/images/site/small_check.jpg);
+    }
+
+    #wrapper {
+        background-color: var(--white);
+        width: 80%;
+        margin: 10px auto;
+        border: 5px solid #8CDB82;
+        border-radius: 10px;
+    }
+
+    .siteName a {
+        font-size: 2rem;
+    }
+
+    .navigation ul {
+        justify-content: space-evenly;
+    }
+
+    .navigation a {
+        font-size: 1rem;
+    }
+
+    .vehicle-showcase h1 {
+        font-size: 1.5rem;
+    }
+
+    .vehicle-info {
+        left: 40px;
+        bottom: 70px;
+    }
+
+    .vehicle-name {
+        font-size: 1.4rem;
+        margin-bottom: 5px;
+    }
+
+    .vehicle-info p {
+        line-height: 1.5;
+        font-size: 1.1rem;
+    }
+
+    .cta-button {
+        margin-top: 10px;
+        width: 90%;
+        font-size: 1.2rem;
+    }
+
+    .reviews-upgrade {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 50px;
+        padding: 10px;
+        flex-wrap: wrap;
+    }
+
+    .upgrades {
+        order: -1;
+    }
+
+    .upgrades h3 {
+        margin: 0 0 40px 0;
+        font-size: 1.4rem;
+    }
+
+    .upgrades-grid {
+        width: 350px;
+    }
+
+    .upgrade-items p {
+        font-size: 1.1rem;
+    }
+
+    .reviews h3 {
+        font-size: 1.4rem;
+        margin: 0 0 40px 0;
+    }
+
+    .reviews li {
+        font-size: 1.2rem;
+    }
+
+
+
+
+}
