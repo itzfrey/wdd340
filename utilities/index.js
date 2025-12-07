@@ -159,4 +159,39 @@ Util.checkJWTToken = (req, res, next) => {
   }
  }
 
+
+ /* ****************************************
+ * Middleware to check account type for admin access
+ * Allows only "Employee" or "Admin" account types
+ **************************************** */
+Util.checkAccountType = (req, res, next) => {
+  // Check if JWT token exists
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash("notice", "Please log in")
+          res.clearCookie("jwt")
+          return res.redirect("/account/login")
+        }
+        
+        // Check if account type is Employee or Admin
+        if (accountData.account_type === "Employee" || accountData.account_type === "Admin") {
+          res.locals.accountData = accountData
+          res.locals.loggedin = 1
+          next()
+        } else {
+          req.flash("notice", "You do not have permission to access this resource.")
+          return res.redirect("/account/login")
+        }
+      }
+    )
+  } else {
+    req.flash("notice", "Please log in with an authorized account.")
+    return res.redirect("/account/login")
+  }
+}
+
 module.exports = Util

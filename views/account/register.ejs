@@ -31,12 +31,17 @@
       <input type="email" id="account_email" name="account_email" class="form-input" required placeholder="Enter a valid email address" value="<%= locals.account_email %>">
     </div>
 
-    <div class="form-group">
+    <div class="form-group password-field">
       <label for="account_password" class="form-label">Password</label>
-      <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span> 
-      <input type="password" id="account_password" name="account_password" class="form-input" 
-        required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
-      <button type="button" class="password-toggle" onclick="togglePassword()">Show/Hide</button>
+      <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span>
+      <div class="password-input-wrapper">
+        <input type="password" id="account_password" name="account_password" class="form-input" 
+          required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+        <button type="button" class="password-toggle" aria-label="Show password">
+          <span class="show-password">👁️ Show</span>
+          <span class="hide-password" style="display: none;">🔒 Hide</span>
+        </button>
+      </div>
     </div>
 
     <button type="submit" class="form-button">Register</button>
@@ -46,14 +51,3 @@
     Already have an account? <a href="/account/login">Login here</a>.
   </p>
 </main>
-
-<script>
-  function togglePassword() {
-    const pwInput = document.getElementById("account_password");
-    if (pwInput.type === "password") {
-      pwInput.type = "text";
-    } else {
-      pwInput.type = "password";
-    }
-  }
-</script>

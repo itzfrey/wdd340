@@ -1,0 +1,112 @@
+<!-- Title -->
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } else { %>
+  <h1>Update Account</h1>
+<% } %>
+
+<!-- Display validation errors -->
+<% if (errors) { %>
+  <ul class="notice">
+    <% errors.array().forEach(error => { %>
+      <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<!-- Flash Messages -->
+<%- messages() %>
+
+<div class="update-account-container">
+  
+  <!-- ========== ACCOUNT UPDATE FORM ========== -->
+  <section class="account-update-section">
+    <h2>Account Update</h2>
+    <form action="/account/update" method="post" class="account-form" id="accountUpdateForm">
+      
+      <div class="form-group">
+        <label for="account_firstname" class="form-label">First Name <span class="required">*</span></label>
+        <input 
+          type="text" 
+          id="account_firstname" 
+          name="account_firstname" 
+          class="form-input" 
+          required 
+          placeholder="Enter your first name"
+          value="<%= locals.account_firstname %>"
+          pattern="^[A-Za-z]{2,}$"
+          title="First name must be at least 2 characters and contain only letters">
+      </div>
+
+      <div class="form-group">
+        <label for="account_lastname" class="form-label">Last Name <span class="required">*</span></label>
+        <input 
+          type="text" 
+          id="account_lastname" 
+          name="account_lastname" 
+          class="form-input" 
+          required 
+          placeholder="Enter your last name"
+          value="<%= locals.account_lastname %>"
+          pattern="^[A-Za-z]{2,}$"
+          title="Last name must be at least 2 characters and contain only letters">
+      </div>
+
+      <div class="form-group">
+        <label for="account_email" class="form-label">Email Address <span class="required">*</span></label>
+        <input 
+          type="email" 
+          id="account_email" 
+          name="account_email" 
+          class="form-input" 
+          required 
+          placeholder="Enter a valid email address"
+          value="<%= locals.account_email %>">
+      </div>
+
+      <!-- Hidden field for account ID -->
+      <input type="hidden" name="account_id" value="<%= locals.account_id %>">
+
+      <button type="submit" class="form-button">Update Account</button>
+    </form>
+  </section>
+
+  <!-- ========== CHANGE PASSWORD FORM ========== -->
+  <section class="password-change-section">
+    <h2>Change Password</h2>
+    <p class="password-instructions">
+      <strong>Password Requirements:</strong> Must be at least 12 characters long and contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character (e.g., !@#$%^&*).
+    </p>
+    <p class="password-notice">
+      Enter a new password below to change your current password.
+    </p>
+
+    <form action="/account/change-password" method="post" class="password-form" id="passwordChangeForm">
+      
+      <div class="form-group password-field">
+        <label for="account_password" class="form-label">New Password <span class="required">*</span></label>
+        <div class="password-input-wrapper">
+          <input 
+            type="password" 
+            id="account_password" 
+            name="account_password" 
+            class="form-input" 
+            required 
+            placeholder="Enter new password"
+            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+            title="Password must be at least 12 characters with 1 uppercase, 1 lowercase, 1 number, and 1 special character">
+          <button type="button" class="password-toggle" aria-label="Show password">
+            <span class="show-password">👁️ Show</span>
+            <span class="hide-password" style="display: none;">🔒 Hide</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Hidden field for account ID -->
+      <input type="hidden" name="account_id" value="<%= locals.account_id %>">
+
+      <button type="submit" class="form-button">Change Password</button>
+    </form>
+  </section>
+
+</div>

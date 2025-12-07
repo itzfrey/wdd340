@@ -17,5 +17,40 @@
 
         <%- include('../partials/footer') %>
     </div>
+
+
+    <!-- Universal Password Toggle Script -->
+    <script>
+      // Add password toggle functionality to all password fields with a toggle button
+      document.addEventListener('DOMContentLoaded', function() {
+        const passwordToggles = document.querySelectorAll('.password-toggle');
+        
+        passwordToggles.forEach(function(toggle) {
+          toggle.addEventListener('click', function() {
+            // Find the password input in the same parent container
+            const wrapper = this.closest('.password-input-wrapper');
+            const passwordInput = wrapper.querySelector('input[type="password"], input[type="text"]');
+            
+            if (passwordInput) {
+              // Toggle the input type
+              const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+              passwordInput.setAttribute('type', type);
+              
+              // Toggle button text
+              const showText = this.querySelector('.show-password');
+              const hideText = this.querySelector('.hide-password');
+              
+              if (type === 'text') {
+                showText.style.display = 'none';
+                hideText.style.display = 'inline';
+              } else {
+                showText.style.display = 'inline';
+                hideText.style.display = 'none';
+              }
+            }
+          });
+        });
+      });
+    </script>
 </body>
 </html>

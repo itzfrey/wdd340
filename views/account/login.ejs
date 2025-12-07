@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title><%= title %></title>
-</head>
-<body>
-
-  <%- include('../partials/header') %>
-
- <main class="login-container">
+<main class="login-container">
 
   <h1 class="login-title"><%= title %></h1>
 
@@ -23,10 +13,6 @@
 
 <%- messages() %>
 
-
-
-
-
   <!-- Login Form -->
   <form action="/account/login" method="post" class="login-form" id="loginForm">
 
@@ -35,9 +21,15 @@
       <input type="email" id="account_email" name="account_email" class="form-input" required placeholder="Enter a valid email address" value="<%= locals.account_email %>">
     </div>
 
-    <div class="form-group">
+    <div class="form-group password-field">
       <label for="account_password" class="form-label">Password</label>
-      <input type="password" id="account_password" name="account_password" class="form-input" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+      <div class="password-input-wrapper">
+        <input type="password" id="account_password" name="account_password" class="form-input" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$">
+        <button type="button" class="password-toggle" aria-label="Show password">
+          <span class="show-password">👁️ Show</span>
+          <span class="hide-password" style="display: none;">🔒 Hide</span>
+        </button>
+      </div>
     </div>
 
     <button type="submit" class="form-button">Login</button>
@@ -49,8 +41,3 @@
   </p>
 
 </main>
-
-
-
-</body>
-</html>

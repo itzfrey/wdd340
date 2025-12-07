@@ -39,6 +39,11 @@ app.use(flash())
   name: 'sessionId',
 }))
 
+app.use((req, res, next) => {
+  res.locals.accountData = req.session.accountData || null;
+  next();
+});
+
 
 // Express Messages Middleware
 app.use(require('connect-flash')())

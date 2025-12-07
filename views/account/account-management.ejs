@@ -17,6 +17,19 @@
 <%- messages() %>
 
 <div class="account-content">
-  <h2>You're logged in</h2>
-  <p>Welcome to your account management area.</p>
+  <!-- Greeting with first name for all account types -->
+  <h2>Welcome <%= accountData.account_firstname %></h2>
+  
+  <!-- Update Account Information link - visible to ALL account types -->
+  <p>
+    <a href="/account/update/<%= accountData.account_id %>" title="Update your account information">Update Account Information</a>
+  </p>
+  
+  <!-- Inventory Management section - ONLY for Employee or Admin -->
+  <% if (accountData.account_type === "Employee" || accountData.account_type === "Admin") { %>
+    <h3>Inventory Management</h3>
+    <p>
+      <a href="/inv/" title="Manage vehicle inventory">Manage Inventory</a>
+    </p>
+  <% } %>
 </div>

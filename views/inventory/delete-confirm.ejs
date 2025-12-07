@@ -1,0 +1,72 @@
+<% if (title) { %>
+  <h1><%= title %></h1>
+<% } else { %>
+  <h1>Delete Vehicle</h1>
+<% } %>
+
+<!-- Display validation errors -->
+<% if (errors) { %>
+  <ul class="notice">
+    <% errors.array().forEach(error => { %>
+      <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+<% } %>
+
+<%- messages() %>
+
+<p><strong>Confirm Vehicle Deletion</strong></p>
+<p>The delete is permanent and cannot be undone.</p>
+
+<form action="/inv/delete" method="post" id="deleteForm">
+  
+  <div class="form-group">
+    <label for="inv_make">Make:</label>
+    <input 
+      type="text" 
+      id="inv_make" 
+      name="inv_make" 
+      readonly
+      value="<%= locals.inv_make %>">
+  </div>
+
+  <div class="form-group">
+    <label for="inv_model">Model:</label>
+    <input 
+      type="text" 
+      id="inv_model" 
+      name="inv_model" 
+      readonly
+      value="<%= locals.inv_model %>">
+  </div>
+
+  <div class="form-group">
+    <label for="inv_year">Year:</label>
+    <input 
+      type="number" 
+      id="inv_year" 
+      name="inv_year" 
+      readonly
+      value="<%= locals.inv_year %>">
+  </div>
+
+  <div class="form-group">
+    <label for="inv_price">Price:</label>
+    <input 
+      type="number" 
+      id="inv_price" 
+      name="inv_price" 
+      readonly
+      step="0.01"
+      value="<%= locals.inv_price %>">
+  </div>
+
+  <!-- Hidden input to send inv_id with form submission -->
+  <input type="hidden" name="inv_id"
+  <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"
+  <% } %>>
+  
+  <button type="submit" class="form-button">Delete Vehicle</button>
+</form>
+
+<p><a href="/inv/">Return to Management</a></p>
