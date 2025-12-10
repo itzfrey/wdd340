@@ -95,10 +95,10 @@ Util.buildVehicleDetail = async function (vehicle) {
 }
 
 /* **************************************
-* Build the classification list (drop-down select)
+* Build the classification list (only APPROVED for regular use)
 * ************************************ */
 Util.buildClassificationList = async function (classification_id = null) {
-  let data = await invModel.getClassifications()
+  let data = await invModel.getApprovedClassifications()
   let classificationList =
     '<select name="classification_id" id="classificationList" required>'
   classificationList += "<option value=''>Choose a Classification</option>"
@@ -114,6 +114,64 @@ Util.buildClassificationList = async function (classification_id = null) {
   })
   classificationList += "</select>"
   return classificationList
+}
+
+/* **************************************
+* Build classification list for admins (ALL classifications)
+* ************************************ */
+Util.buildAllClassificationList = async function (classification_id = null) {
+  let data = await invModel.getAllClassifications()
+  let classificationList =
+    '<select name="classification_id" id="classificationList" required>'
+  classificationList += "<option value=''>Choose a Classification</option>"
+  data.rows.forEach((row) => {
+    classificationList += '<option value="' + row.classification_id + '"'
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      classificationList += " selected "
+    }
+    classificationList += ">" + row.classification_name
+    if (!row.classification_approved) {
+      classificationList += " (PENDING)"
+    }
+    classificationList += "</option>"
+  })
+  classificationList += "</select>"
+  return classificationList
+}
+
+/* ****************************************
+ * Middleware to check if user is Admin (not just Employee)
+ **************************************** */
+Util.checkAdminOnly = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash("notice", "Please log in")
+          res.clearCookie("jwt")
+          return res.redirect("/account/login")
+        }
+        
+        // Check if account type is Admin ONLY
+        if (accountData.account_type === "Admin") {
+          res.locals.accountData = accountData
+          res.locals.loggedin = 1
+          next()
+        } else {
+          req.flash("notice", "You must be an administrator to access this resource.")
+          return res.redirect("/account/")
+        }
+      }
+    )
+  } else {
+    req.flash("notice", "Please log in with an administrator account.")
+    return res.redirect("/account/login")
+  }
 }
 
 

@@ -32,4 +32,12 @@
       <a href="/inv/" title="Manage vehicle inventory">Manage Inventory</a>
     </p>
   <% } %>
+
+    <!-- Pending Approvals - ONLY for Admin -->
+  <% if (accountData.account_type === "Admin") { %>
+    <h3>Administrator Tools</h3>
+    <p>
+      <a href="/admin/approvals" title="Review pending items">Pending Approvals</a>
+    </p>
+  <% } %>
 </div>

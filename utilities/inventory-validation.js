@@ -1,3 +1,5 @@
+
+const invModel = require("../models/inventory-model")
 const utilities = require(".")
 const { body, validationResult } = require("express-validator")
 const validate = {}
@@ -15,7 +17,13 @@ validate.classificationRules = () => {
       .isLength({ min: 1 })
       .withMessage("Please provide a classification name.")
       .matches(/^[a-zA-Z0-9]+$/)
-      .withMessage("Classification name cannot contain spaces or special characters."),
+      .withMessage("Classification name cannot contain spaces or special characters.")
+      .custom(async (classification_name) => {
+        const exists = await invModel.checkExistingClassification(classification_name)
+        if (exists) {
+          throw new Error("Classification name already exists.")
+        }
+      }),
   ]
 }
 

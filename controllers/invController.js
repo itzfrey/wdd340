@@ -78,17 +78,32 @@ async function addClassification(req, res) {
 
   const addResult = await invModel.addClassification(classification_name)
 
+    // Check if it's an error object
+  if (addResult && addResult.error) {
+    req.flash("notice", addResult.error)
+    return res.status(400).render("inventory/add-classification", {
+      title: "Add New Classification",
+      nav,
+      errors: null,
+      classification_name
+    })
+  }
+
+
   if (addResult) {
-    // Create new navigation with the new classification
     nav = await utilities.getNav()
-    req.flash("success", `${classification_name} classification was successfully added.`)
+
+    const classificationSelect = await utilities.buildClassificationList()
+
+    req.flash("notice", `${classification_name} classification has been submitted and is pending administrator approval.`)
     res.status(201).render("inventory/management", {
       title: "Vehicle Management",
       nav,
+      classificationSelect,
       errors: null,
     })
   } else {
-    req.flash("error", "Sorry, adding the classification failed.")
+    req.flash("notice", "Sorry, adding the classification failed.")
     res.status(501).render("inventory/add-classification", {
       title: "Add New Classification",
       nav,
@@ -129,6 +144,20 @@ async function addInventory(req, res) {
     inv_color,
   } = req.body
 
+  // Check if classification is approved
+  const isApproved = await invModel.isClassificationApproved(classification_id)
+  
+  if (!isApproved) {
+    req.flash("notice", "Cannot add inventory to an unapproved classification. Please wait for administrator approval.")
+    let classificationList = await utilities.buildClassificationList(classification_id)
+    return res.status(400).render("inventory/add-inventory", {
+      title: "Add New Vehicle",
+      nav,
+      classificationList,
+      errors: null,
+    })
+  }
+
   const addResult = await invModel.addInventory(
     classification_id,
     inv_make,
@@ -143,14 +172,18 @@ async function addInventory(req, res) {
   )
 
   if (addResult) {
-    req.flash("success", `${inv_year} ${inv_make} ${inv_model} was successfully added to inventory.`)
+    const classificationSelect = await utilities.buildClassificationList()
+
+
+    req.flash("notice", `${inv_year} ${inv_make} ${inv_model} has been submitted and is pending administrator approval.`)
     res.status(201).render("inventory/management", {
       title: "Vehicle Management",
       nav,
+      classificationSelect,
       errors: null,
     })
   } else {
-    req.flash("error", "Sorry, adding the vehicle failed.")
+    req.flash("notice", "Sorry, adding the vehicle failed.")
     let classificationList = await utilities.buildClassificationList(classification_id)
     res.status(501).render("inventory/add-inventory", {
       title: "Add New Vehicle",

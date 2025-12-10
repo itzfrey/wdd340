@@ -35,3 +35,21 @@
 </form>
 
 <p class="return-to-management"><a href="/inv/">Return to Management</a></p>
+
+<script>
+  // Prevent double submission
+  const form = document.getElementById('addClassificationForm');
+  const submitBtn = document.getElementById('submitBtn');
+  
+  form.addEventListener('submit', function(e) {
+    // Disable button to prevent double clicks
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Adding...';
+    
+    // Re-enable after 3 seconds in case of error
+    setTimeout(function() {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Add Classification';
+    }, 3000);
+  });
+</script>

@@ -87,10 +87,15 @@ app.use("/", baseRoute);
 // Account routes 
 app.use("/account", require("./routes/accountRoute"))
 
+// Admin routes
+app.use("/admin", require("./routes/adminRoute"))
+
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
 })
+
+
 
 
 /* ***********************
